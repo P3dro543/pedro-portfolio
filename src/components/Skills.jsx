@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { useTheme } from '../context/ThemeContext'
-import { useLang }  from '../context/LangContext'
-import { data }     from '../data/content'
+import { useLang } from '../context/LangContext'
+import { data } from '../data/content'
 
 const container = {
   animate: {
@@ -12,31 +12,37 @@ const container = {
 }
 
 const item = {
-  initial:     { opacity: 0, y: 18 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport:    { once: true },
-  transition:  { duration: 0.45, ease: 'easeOut' },
+  initial: {
+    opacity: 0,
+    y: 18,
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.45,
+      ease: 'easeOut',
+    },
+  },
 }
 
 function LevelDots({ level }) {
-  const { t }    = useTheme()
+  const { t } = useTheme()
   const { lang } = useLang()
 
   const configs = {
     Advanced: {
       label: lang === 'es' ? 'Avanzado' : 'Advanced',
       color: t.ink,
-      bg: t.bg2,
+      bg: t.bg2, // Mantiene consistencia dinámica con el tema
       dots: 3,
     },
-
     Intermediate: {
       label: lang === 'es' ? 'Intermedio' : 'Intermediate',
       color: t.muted,
       bg: t.bg2,
       dots: 2,
     },
-
     Beginner: {
       label: lang === 'es' ? 'Principiante' : 'Beginner',
       color: t.hint,
@@ -68,8 +74,7 @@ function LevelDots({ level }) {
               width: '6px',
               height: '6px',
               borderRadius: '999px',
-              backgroundColor:
-                i <= config.dots ? config.color : t.border,
+              backgroundColor: i <= config.dots ? config.color : t.border,
               transition: 'all 0.3s ease',
             }}
           />
@@ -89,7 +94,6 @@ function LevelDots({ level }) {
           lineHeight: 1,
           backdropFilter: 'blur(10px)',
           transition: 'all 0.3s ease',
-          whiteSpace: 'nowrap',
         }}
       >
         {config.label}
@@ -99,7 +103,7 @@ function LevelDots({ level }) {
 }
 
 export default function Skills() {
-  const { t }        = useTheme()
+  const { t } = useTheme()
   const { tr, lang } = useLang()
 
   const total = data.skills.reduce(
@@ -108,33 +112,19 @@ export default function Skills() {
   )
 
   const legendItems = [
-    {
-      label: lang === 'es' ? 'Avanzado' : 'Advanced',
-      dots: 3,
-      color: t.ink,
-    },
-
-    {
-      label: lang === 'es' ? 'Intermedio' : 'Intermediate',
-      dots: 2,
-      color: t.muted,
-    },
-
-    {
-      label: lang === 'es' ? 'Principiante' : 'Beginner',
-      dots: 1,
-      color: t.hint,
-    },
+    { label: lang === 'es' ? 'Avanzado' : 'Advanced', dots: 3, color: t.ink },
+    { label: lang === 'es' ? 'Intermedio' : 'Intermediate', dots: 2, color: t.muted },
+    { label: lang === 'es' ? 'Principiante' : 'Beginner', dots: 1, color: t.hint },
   ]
 
   return (
     <section
       style={{
-        padding: '56px 24px 48px',
+        padding: '72px 36px 60px',
         position: 'relative',
       }}
     >
-      {/* Background glow */}
+      {/* Background glow (Restaurado del primer archivo) */}
       <div
         style={{
           position: 'absolute',
@@ -152,18 +142,15 @@ export default function Skills() {
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 14 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.45 }}
         style={{
           display: 'flex',
           alignItems: 'flex-end',
           justifyContent: 'space-between',
-          marginBottom: '24px',
+          marginBottom: '36px',
           position: 'relative',
-          zIndex: 2,
-          gap: '16px',
-          flexWrap: 'wrap',
+          zIndex: 2, // Restaurado del primer archivo
         }}
       >
         <div>
@@ -173,7 +160,7 @@ export default function Skills() {
               color: t.hint,
               textTransform: 'uppercase',
               letterSpacing: '1.2px',
-              marginBottom: '8px',
+              marginBottom: '10px',
               transition: 'color 0.3s ease',
             }}
           >
@@ -183,7 +170,7 @@ export default function Skills() {
           <h2
             style={{
               fontFamily: "'DM Serif Display', serif",
-              fontSize: 'clamp(26px, 6vw, 34px)',
+              fontSize: '34px',
               color: t.ink,
               letterSpacing: '-0.6px',
               lineHeight: 1.05,
@@ -240,16 +227,15 @@ export default function Skills() {
       {/* Legend */}
       <motion.div
         initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
+        animate={{ opacity: 1 }}
         transition={{
           duration: 0.4,
           delay: 0.1,
         }}
         style={{
           display: 'flex',
-          gap: '14px',
-          marginBottom: '24px',
+          gap: '18px',
+          marginBottom: '28px',
           flexWrap: 'wrap',
         }}
       >
@@ -275,8 +261,7 @@ export default function Skills() {
                     width: '5px',
                     height: '5px',
                     borderRadius: '999px',
-                    backgroundColor:
-                      i <= cfg.dots ? cfg.color : t.border,
+                    backgroundColor: i <= cfg.dots ? cfg.color : t.border,
                     transition: 'background-color 0.3s ease',
                   }}
                 />
@@ -297,19 +282,17 @@ export default function Skills() {
         ))}
       </motion.div>
 
-      {/* Grid — una columna en móvil, dos en desktop */}
+      {/* Grid */}
       <motion.div
         variants={container}
         initial="initial"
-        whileInView="animate"
-        viewport={{ once: true }}
+        animate="animate"
         style={{
           display: 'grid',
-          gridTemplateColumns:
-            'repeat(auto-fit, minmax(280px, 1fr))',
+          gridTemplateColumns: '1fr 1fr',
           gap: '14px',
-          position: 'relative',
-          zIndex: 2,
+          position: 'relative', // Restaurado del primer archivo
+          zIndex: 2, // Restaurado del primer archivo
         }}
       >
         {data.skills.map((cat) => (
@@ -323,8 +306,8 @@ export default function Skills() {
               backgroundColor: t.bg2,
               border: `1px solid ${t.border}`,
               borderRadius: '18px',
-              padding: '24px',
-              backdropFilter: 'blur(16px)',
+              padding: '26px',
+              backdropFilter: 'blur(16px)', // Restaurado del primer archivo
               boxShadow:
                 '0 1px 2px rgba(0,0,0,0.02), 0 10px 30px rgba(0,0,0,0.03)',
               transition: 'all 0.25s ease',
@@ -335,9 +318,7 @@ export default function Skills() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                marginBottom: '20px',
-                gap: '12px',
-                flexWrap: 'wrap',
+                marginBottom: '22px',
               }}
             >
               <p
@@ -367,7 +348,7 @@ export default function Skills() {
               style={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '14px',
+                gap: '16px',
               }}
             >
               {cat.items.map((skill, index) => (
@@ -377,11 +358,10 @@ export default function Skills() {
                     opacity: 0,
                     x: -10,
                   }}
-                  whileInView={{
+                  animate={{
                     opacity: 1,
                     x: 0,
                   }}
-                  viewport={{ once: true }}
                   transition={{
                     delay: index * 0.04,
                   }}
@@ -390,15 +370,12 @@ export default function Skills() {
                     justifyContent: 'space-between',
                     alignItems: 'center',
                     paddingBottom:
-                      index !== cat.items.length - 1
-                        ? '14px'
-                        : 0,
+                      index !== cat.items.length - 1 ? '14px' : 0,
                     borderBottom:
                       index !== cat.items.length - 1
                         ? `1px solid ${t.border}`
                         : 'none',
                     transition: 'border-color 0.3s ease',
-                    gap: '12px',
                   }}
                 >
                   <div>
@@ -410,12 +387,12 @@ export default function Skills() {
                         marginBottom: '3px',
                         letterSpacing: '-0.1px',
                         transition: 'color 0.3s ease',
-                        flexShrink: 0,
                       }}
                     >
                       {skill.name}
                     </p>
 
+                    {/* Texto descriptivo del nivel del skill (Restaurado del primer archivo) */}
                     <span
                       style={{
                         fontSize: '11px',
