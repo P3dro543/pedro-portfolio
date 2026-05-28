@@ -1,22 +1,18 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion }   from 'framer-motion'
 import { useTheme } from '../context/ThemeContext'
-import { useLang } from '../context/LangContext'
-import { data } from '../data/content'
+import { useLang }  from '../context/LangContext'
+import { data }     from '../data/content'
 
 const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 18 },
+  initial:     { opacity: 0, y: 16 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: {
-    duration: 0.45,
-    ease: 'easeOut',
-    delay,
-  },
+  viewport:    { once: true },
+  transition:  { duration: 0.4, ease: 'easeOut', delay },
 })
 
 export default function Contact() {
-  const { t } = useTheme()
+  const { t }  = useTheme()
   const { tr } = useLang()
 
   const [form, setForm] = useState({
@@ -68,29 +64,30 @@ export default function Contact() {
 
   const inputStyle = {
     width: '100%',
-    padding: '12px 14px',
-    borderRadius: '12px',
+    padding: '10px 13px',
+    borderRadius: '8px',
     border: `1px solid ${t.border}`,
     backgroundColor: t.bg,
     color: t.ink,
     fontSize: '13px',
     fontFamily: "'Inter', sans-serif",
     outline: 'none',
-    transition: 'all 0.3s ease',
+    transition:
+      'background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease',
   }
 
   return (
     <section
       style={{
-        padding: '72px 36px',
+        padding: '56px 24px 48px',
         position: 'relative',
       }}
     >
       {/* Header */}
       <motion.div
-        {...fadeUp(0)}
+        {...fadeUp(0.05)}
         style={{
-          marginBottom: '40px',
+          marginBottom: '32px',
           maxWidth: '620px',
         }}
       >
@@ -98,9 +95,10 @@ export default function Contact() {
           style={{
             fontSize: '11px',
             textTransform: 'uppercase',
-            letterSpacing: '1.4px',
+            letterSpacing: '1px',
             color: t.hint,
-            marginBottom: '14px',
+            marginBottom: '10px',
+            transition: 'color 0.3s ease',
           }}
         >
           {tr.contactLabel}
@@ -109,11 +107,12 @@ export default function Contact() {
         <h2
           style={{
             fontFamily: "'DM Serif Display', serif",
-            fontSize: 'clamp(38px, 6vw, 58px)',
-            lineHeight: 1.05,
-            letterSpacing: '-2px',
+            fontSize: 'clamp(28px, 7vw, 58px)',
+            lineHeight: 1.1,
+            letterSpacing: '-1px',
             color: t.ink,
-            marginBottom: '18px',
+            marginBottom: '12px',
+            transition: 'color 0.3s ease',
           }}
         >
           {tr.contactTitle[0]}
@@ -123,10 +122,11 @@ export default function Contact() {
 
         <p
           style={{
-            fontSize: '15px',
-            lineHeight: 1.8,
+            fontSize: '14px',
+            lineHeight: 1.7,
             color: t.muted,
-            maxWidth: '520px',
+            maxWidth: '420px',
+            transition: 'color 0.3s ease',
           }}
         >
           {tr.contactBody}
@@ -137,8 +137,9 @@ export default function Contact() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: '1fr 1.2fr',
-          gap: '22px',
+          gridTemplateColumns:
+            'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: '16px',
         }}
       >
         {/* Contact Cards */}
@@ -146,7 +147,7 @@ export default function Contact() {
           {...fadeUp(0.1)}
           style={{
             display: 'grid',
-            gap: '12px',
+            gap: '10px',
             alignSelf: 'start',
           }}
         >
@@ -163,29 +164,32 @@ export default function Contact() {
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '14px',
-                padding: '18px',
-                borderRadius: '18px',
+                gap: '12px',
+                padding: '14px 16px',
+                borderRadius: '14px',
                 backgroundColor: t.bg2,
                 border: `1px solid ${t.border}`,
                 textDecoration: 'none',
-                transition: 'all 0.25s ease',
+                transition:
+                  'border-color 0.25s ease, background-color 0.3s ease, transform 0.25s ease',
                 cursor: link.href ? 'pointer' : 'default',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-3px)'
+                e.currentTarget.style.transform =
+                  'translateY(-2px)'
                 e.currentTarget.style.borderColor = t.muted
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0px)'
+                e.currentTarget.style.transform =
+                  'translateY(0px)'
                 e.currentTarget.style.borderColor = t.border
               }}
             >
               <div
                 style={{
-                  width: '46px',
-                  height: '46px',
-                  borderRadius: '14px',
+                  width: '36px',
+                  height: '36px',
+                  borderRadius: '10px',
                   backgroundColor: t.bg,
                   border: `1px solid ${t.border}`,
                   display: 'flex',
@@ -193,22 +197,24 @@ export default function Contact() {
                   justifyContent: 'center',
                   color: t.ink,
                   flexShrink: 0,
+                  transition: 'all 0.3s ease',
                 }}
               >
                 <i
                   className={`ti ${link.icon}`}
-                  style={{ fontSize: '19px' }}
+                  style={{ fontSize: '16px' }}
                 />
               </div>
 
-              <div>
+              <div style={{ minWidth: 0 }}>
                 <p
                   style={{
                     fontSize: '11px',
                     textTransform: 'uppercase',
-                    letterSpacing: '1px',
+                    letterSpacing: '0.7px',
                     color: t.hint,
-                    marginBottom: '4px',
+                    marginBottom: '2px',
+                    transition: 'color 0.3s ease',
                   }}
                 >
                   {link.label}
@@ -216,11 +222,14 @@ export default function Contact() {
 
                 <p
                   style={{
-                    fontSize: '14px',
+                    fontSize: '13px',
                     color: t.ink,
                     fontWeight: 500,
                     lineHeight: 1.5,
-                    wordBreak: 'break-word',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    transition: 'color 0.3s ease',
                   }}
                 >
                   {link.value}
@@ -236,41 +245,43 @@ export default function Contact() {
           style={{
             backgroundColor: t.bg2,
             border: `1px solid ${t.border}`,
-            borderRadius: '26px',
-            padding: '28px',
+            borderRadius: '18px',
+            padding: '24px',
             backdropFilter: 'blur(10px)',
+            transition:
+              'background-color 0.3s ease, border-color 0.3s ease',
           }}
         >
           {sent ? (
             <motion.div
-              initial={{ opacity: 0, y: 14 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               style={{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                padding: '50px 0',
+                padding: '32px 0',
                 textAlign: 'center',
               }}
             >
               <div
                 style={{
-                  width: '64px',
-                  height: '64px',
+                  width: '48px',
+                  height: '48px',
                   borderRadius: '50%',
-                  backgroundColor: '#ecfdf3',
+                  backgroundColor: '#f0fdf4',
                   border: '1px solid #bbf7d0',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  marginBottom: '18px',
+                  marginBottom: '14px',
                 }}
               >
                 <i
                   className="ti ti-check"
                   style={{
-                    fontSize: '28px',
+                    fontSize: '20px',
                     color: '#22c55e',
                   }}
                 />
@@ -278,9 +289,10 @@ export default function Contact() {
 
               <h3
                 style={{
-                  fontSize: '20px',
+                  fontSize: '17px',
                   color: t.ink,
-                  marginBottom: '8px',
+                  marginBottom: '6px',
+                  transition: 'color 0.3s ease',
                 }}
               >
                 {tr.sentTitle}
@@ -288,11 +300,12 @@ export default function Contact() {
 
               <p
                 style={{
-                  fontSize: '14px',
+                  fontSize: '13px',
                   color: t.muted,
                   maxWidth: '320px',
                   lineHeight: 1.7,
-                  marginBottom: '20px',
+                  marginBottom: '16px',
+                  transition: 'color 0.3s ease',
                 }}
               >
                 {tr.sentBody}
@@ -312,8 +325,9 @@ export default function Contact() {
                   border: 'none',
                   color: t.muted,
                   cursor: 'pointer',
-                  fontSize: '13px',
+                  fontSize: '12px',
                   textDecoration: 'underline',
+                  transition: 'color 0.3s ease',
                 }}
               >
                 {tr.sendAnother}
@@ -324,13 +338,15 @@ export default function Contact() {
               style={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '18px',
+                gap: '14px',
               }}
             >
+              {/* Name + Email */}
               <div
                 style={{
                   display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
+                  gridTemplateColumns:
+                    'repeat(auto-fit, minmax(180px, 1fr))',
                   gap: '14px',
                 }}
               >
@@ -340,9 +356,10 @@ export default function Contact() {
                       display: 'block',
                       fontSize: '11px',
                       textTransform: 'uppercase',
-                      letterSpacing: '1px',
+                      letterSpacing: '0.7px',
                       color: t.hint,
-                      marginBottom: '7px',
+                      marginBottom: '6px',
+                      transition: 'color 0.3s ease',
                     }}
                   >
                     {tr.nameLabel}
@@ -364,9 +381,10 @@ export default function Contact() {
                       display: 'block',
                       fontSize: '11px',
                       textTransform: 'uppercase',
-                      letterSpacing: '1px',
+                      letterSpacing: '0.7px',
                       color: t.hint,
-                      marginBottom: '7px',
+                      marginBottom: '6px',
+                      transition: 'color 0.3s ease',
                     }}
                   >
                     {tr.emailLabel}
@@ -389,9 +407,10 @@ export default function Contact() {
                     display: 'block',
                     fontSize: '11px',
                     textTransform: 'uppercase',
-                    letterSpacing: '1px',
+                    letterSpacing: '0.7px',
                     color: t.hint,
-                    marginBottom: '7px',
+                    marginBottom: '6px',
+                    transition: 'color 0.3s ease',
                   }}
                 >
                   {tr.msgLabel}
@@ -399,7 +418,7 @@ export default function Contact() {
 
                 <textarea
                   name="message"
-                  rows={6}
+                  rows={4}
                   value={form.message}
                   onChange={handleChange}
                   placeholder={tr.msgPh}
@@ -410,36 +429,40 @@ export default function Contact() {
                 />
               </div>
 
-              <button
-                onClick={handleSubmit}
-                style={{
-                  width: 'fit-content',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  padding: '13px 22px',
-                  borderRadius: '999px',
-                  border: 'none',
-                  backgroundColor: t.ink,
-                  color: t.bg,
-                  cursor: 'pointer',
-                  fontSize: '13px',
-                  fontWeight: 600,
-                  fontFamily: "'Inter', sans-serif",
-                  transition: 'all 0.3s ease',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-2px)'
-                  e.currentTarget.style.opacity = '0.9'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0px)'
-                  e.currentTarget.style.opacity = '1'
-                }}
-              >
-                <i className="ti ti-arrow-up-right" />
-                {tr.sendBtn}
-              </button>
+              <div>
+                <button
+                  onClick={handleSubmit}
+                  style={{
+                    width: 'fit-content',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '10px 22px',
+                    borderRadius: '999px',
+                    border: 'none',
+                    backgroundColor: t.ink,
+                    color: t.bg,
+                    cursor: 'pointer',
+                    fontSize: '13px',
+                    fontWeight: 600,
+                    fontFamily: "'Inter', sans-serif",
+                    transition: 'all 0.3s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform =
+                      'translateY(-2px)'
+                    e.currentTarget.style.opacity = '0.92'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform =
+                      'translateY(0px)'
+                    e.currentTarget.style.opacity = '1'
+                  }}
+                >
+                  <i className="ti ti-arrow-up-right" />
+                  {tr.sendBtn}
+                </button>
+              </div>
             </div>
           )}
         </motion.div>
