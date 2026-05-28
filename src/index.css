@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&family=Fira+Code:wght@400;500&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-serif: 'DM Serif Display', serif;
+  --font-mono: 'Fira Code', monospace;
+
+  --color-bg: #fafaf8;
+  --color-ink: #0f0f0e;
+  --color-muted: #7a7a74;
+  --color-hint: #b8b8b2;
+  --color-border: #e4e4de;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Base */
+body {
+  background-color: #fafaf8;
+  color: #0f0f0e;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Animación pulse */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* Ocultar cursor nativo */
+* {
+  cursor: none !important;
+}
+
+/* Cursor personalizado */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 8px;
+  height: 8px;
+
+  background-color: #0f0f0e;
+  border-radius: 50%;
+
+  pointer-events: none;
+  z-index: 9999;
+
+  transform: translate(-50%, -50%);
+
+  transition:
+    width 0.2s ease,
+    height 0.2s ease,
+    background-color 0.3s ease,
+    transform 0.1s ease;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 36px;
+  height: 36px;
+
+  border: 1px solid rgba(15, 15, 14, 0.3);
+  border-radius: 50%;
+
+  pointer-events: none;
+  z-index: 9998;
+
+  transform: translate(-50%, -50%);
+
+  transition:
+    width 0.25s ease,
+    height 0.25s ease,
+    border-color 0.3s ease,
+    background-color 0.2s ease,
+    transform 0.08s ease;
+}
+
+/* Estado hover */
+.cursor-dot.hovered {
+  width: 6px;
+  height: 6px;
+
+  background-color: #0f0f0e;
+}
+
+.cursor-ring.hovered {
+  width: 52px;
+  height: 52px;
+
+  border-color: rgba(15, 15, 14, 0.15);
+  background-color: rgba(15, 15, 14, 0.04);
+}
+
+/* Cursor modo claro */
+.cursor-dot  { background-color: #0f0f0e; }
+.cursor-ring { border-color: rgba(15, 15, 14, 0.3); }
+
+.cursor-dot.hovered  { background-color: #0f0f0e; }
+.cursor-ring.hovered { border-color: rgba(15, 15, 14, 0.15); background-color: rgba(15, 15, 14, 0.04); }
+
+/* Cursor modo oscuro */
+.dark .cursor-dot  { background-color: #f0f0ee; }
+.dark .cursor-ring { border-color: rgba(240, 240, 238, 0.3); }
+
+.dark .cursor-dot.hovered  { background-color: #f0f0ee; }
+.dark .cursor-ring.hovered { border-color: rgba(240, 240, 238, 0.15); background-color: rgba(240, 240, 238, 0.04); }
