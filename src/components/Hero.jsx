@@ -4,9 +4,10 @@ import { useLang }  from '../context/LangContext'
 import { data }     from '../data/content'
 
 const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.5, ease: 'easeOut', delay },
+  initial:     { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport:    { once: true },
+  transition:  { duration: 0.5, ease: 'easeOut', delay },
 })
 
 export default function Hero({ onNav }) {
@@ -14,12 +15,19 @@ export default function Hero({ onNav }) {
   const { tr } = useLang()
 
   return (
-    <section style={{ padding: '64px 36px 48px' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '48px', alignItems: 'center' }}>
+    <section style={{ padding: '48px 24px 40px' }}>
+
+      {/* Grid — columnas en desktop, columna en móvil */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+        gap: '40px',
+        alignItems: 'center',
+      }}>
 
         {/* LEFT */}
         <div>
-          <motion.p {...fadeUp(0.1)} style={{ fontSize: '13px', color: t.muted, marginBottom: '24px', transition: 'color 0.3s ease' }}>
+          <motion.p {...fadeUp(0.1)} style={{ fontSize: '13px', color: t.muted, marginBottom: '20px', transition: 'color 0.3s ease' }}>
             {tr.role} · {tr.location}
           </motion.p>
 
@@ -27,11 +35,11 @@ export default function Hero({ onNav }) {
             {...fadeUp(0.2)}
             style={{
               fontFamily: "'DM Serif Display', serif",
-              fontSize: '52px',
+              fontSize: 'clamp(36px, 8vw, 52px)',
               lineHeight: 1.08,
               letterSpacing: '-0.5px',
               color: t.ink,
-              marginBottom: '20px',
+              marginBottom: '18px',
               transition: 'color 0.3s ease',
             }}
           >
@@ -43,7 +51,7 @@ export default function Hero({ onNav }) {
 
           <motion.p
             {...fadeUp(0.3)}
-            style={{ fontSize: '15px', color: t.muted, lineHeight: 1.75, maxWidth: '380px', marginBottom: '36px', transition: 'color 0.3s ease' }}
+            style={{ fontSize: '15px', color: t.muted, lineHeight: 1.75, marginBottom: '32px', transition: 'color 0.3s ease' }}
           >
             {tr.bio[0]}
             <strong style={{ color: t.ink, fontWeight: 500, transition: 'color 0.3s ease' }}>
@@ -52,7 +60,7 @@ export default function Hero({ onNav }) {
             {tr.bio[2]}
           </motion.p>
 
-          <motion.div {...fadeUp(0.4)} style={{ display: 'flex', gap: '10px', marginBottom: '56px' }}>
+          <motion.div {...fadeUp(0.4)} style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '48px' }}>
             <button
               onClick={() => onNav('work')}
               style={{
@@ -93,9 +101,10 @@ export default function Hero({ onNav }) {
         {/* RIGHT — foto */}
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
-          style={{ position: 'relative', flexShrink: 0 }}
+          style={{ position: 'relative', justifySelf: 'center' }}
         >
           <div style={{
             position: 'absolute',
@@ -109,53 +118,43 @@ export default function Hero({ onNav }) {
 
           <div style={{
             position: 'relative',
-            width: '220px',
-            height: '280px',
+            width: '200px',
+            height: '260px',
             borderRadius: '20px',
             overflow: 'hidden',
             zIndex: 1,
             backgroundColor: t.bg2,
             transition: 'background-color 0.3s ease',
           }}>
-          <img
-            src="/photo.jpg"
-            alt="Pedro Romero"
-            width="220"
-            height="280"
-            loading="eager"
-            decoding="sync"
-            draggable="false"
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              objectPosition: 'center top',
-              display: 'block',
-            }}
-          />
+            <img
+              src="/photo.jpg"
+              alt="Pedro Romero"
+              style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block' }}
+            />
           </div>
 
           <motion.div
             initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.5 }}
             style={{
               position: 'absolute',
               bottom: '-14px',
-              left: '-20px',
+              left: '-16px',
               backgroundColor: t.bg2,
               border: `1px solid ${t.border}`,
               borderRadius: '12px',
-              padding: '10px 14px',
+              padding: '8px 12px',
               zIndex: 2,
               display: 'flex',
               alignItems: 'center',
-              gap: '8px',
+              gap: '7px',
               transition: 'all 0.3s ease',
             }}
           >
-            <span style={{ display: 'inline-block', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#22c55e', animation: 'pulse 2.5s ease infinite' }} />
-            <span style={{ fontSize: '12px', color: t.ink, fontWeight: 500, whiteSpace: 'nowrap', transition: 'color 0.3s ease' }}>
+            <span style={{ display: 'inline-block', width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#22c55e', animation: 'pulse 2.5s ease infinite', flexShrink: 0 }} />
+            <span style={{ fontSize: '11px', color: t.ink, fontWeight: 500, whiteSpace: 'nowrap', transition: 'color 0.3s ease' }}>
               {tr.available} for work
             </span>
           </motion.div>
@@ -166,23 +165,29 @@ export default function Hero({ onNav }) {
       {/* Stats */}
       <motion.div
         {...fadeUp(0.5)}
-        style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', borderTop: `1px solid ${t.border}`, marginTop: '48px', transition: 'border-color 0.3s ease' }}
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr 1fr',
+          borderTop: `1px solid ${t.border}`,
+          marginTop: '48px',
+          transition: 'border-color 0.3s ease',
+        }}
       >
         {tr.stats.map((stat, i) => (
           <div
             key={i}
             style={{
-              padding: '20px 0',
-              paddingLeft: i > 0 ? '24px' : '0',
+              padding: '18px 0',
+              paddingLeft: i > 0 ? '16px' : '0',
               borderRight: i < 2 ? `1px solid ${t.border}` : 'none',
-              paddingRight: i < 2 ? '24px' : '0',
+              paddingRight: i < 2 ? '16px' : '0',
               transition: 'border-color 0.3s ease',
             }}
           >
-            <p style={{ fontFamily: "'DM Serif Display', serif", fontSize: '34px', color: t.ink, letterSpacing: '-0.5px', transition: 'color 0.3s ease' }}>
+            <p style={{ fontFamily: "'DM Serif Display', serif", fontSize: 'clamp(24px, 5vw, 34px)', color: t.ink, letterSpacing: '-0.5px', transition: 'color 0.3s ease' }}>
               {stat.value}
             </p>
-            <p style={{ fontSize: '12px', color: t.muted, marginTop: '4px', transition: 'color 0.3s ease' }}>
+            <p style={{ fontSize: '11px', color: t.muted, marginTop: '3px', transition: 'color 0.3s ease' }}>
               {stat.label}
             </p>
           </div>
