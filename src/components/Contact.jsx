@@ -220,20 +220,35 @@ export default function Contact() {
                   {link.label}
                 </p>
 
-                <p
-                  style={{
-                    fontSize: '13px',
-                    color: t.ink,
-                    fontWeight: 500,
-                    lineHeight: 1.5,
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    transition: 'color 0.3s ease',
-                  }}
-                >
-                  {link.value}
-                </p>
+              <p
+                onMouseEnter={() => {
+                  if (link.label === 'Email') setShowEmail(true)
+                }}
+                onMouseLeave={() => {
+                  if (link.label === 'Email') setShowEmail(false)
+                }}
+                style={{
+                  fontSize: '13px',
+                  color: t.ink,
+                  fontWeight: 500,
+                  lineHeight: 1.5,
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                  transition: 'all 0.3s ease',
+                  cursor: link.label === 'Email' ? 'pointer' : 'default',
+                  filter:
+                    link.label === 'Email' && !showEmail
+                      ? 'blur(3px)'
+                      : 'blur(0px)',
+                }}
+              >
+                {link.label === 'Email'
+                  ? showEmail
+                    ? link.value
+                    : 'Hover to reveal'
+                  : link.value}
+              </p>
               </div>
             </a>
           ))}
